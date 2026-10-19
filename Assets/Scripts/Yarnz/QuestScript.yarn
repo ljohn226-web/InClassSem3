@@ -1,0 +1,168 @@
+﻿title: loadZone
+---
+<<declare $dialoguePhase = "">>
+<<declare $visitedYet = false>>
+<<dialoguePhaseSetter NPC>>
+<<if $dialoguePhase == "start">>
+    <<jump Start>>
+<<elseif $dialoguePhase == "questTaken">>
+    <<jump InProgress>>
+<<elseif $dialoguePhase == "questDenied">>
+    <<jump ReturnChat>>
+<<elseif $dialoguePhase == "questComplete">>
+    <<jump QuestComplete>>
+<<elseif $dialoguePhase == "questReturn">>
+    <<jump CompletedReturn>>
+//<<else>>
+//Npc: Error Error FIX YA SHII
+<<endif>>
+===
+
+title: Start
+---
+<<set $visitedYet to true>>
+<<camMove NPC_CamRig "npc">>
+Npc: W-WhAT? Where'd you come from!?
+Npc: How in the hell did you get into my humble abode!?
+<<camMove NPC_CamRig "pc">>
+    -> Um... the door?
+         <<camMove NPC_CamRig "npc">>
+    -> Oh I'm sorry! I didn't mean to startle you.
+         <<camMove NPC_CamRig "npc">>
+Npc: Hmm... Well no matter. Welcome, welcome! Do make yourself comfortable, please. 
+Npc: Where do you come from my darling?
+<<camMove NPC_CamRig "pc">>
+    -> I… Well I guess I'm not too sure myself.
+         <<camMove NPC_CamRig "npc">>
+    -> From outside, duh.
+         <<camMove NPC_CamRig "npc">>
+    -> It doesn't matter, cuz I'm here now!
+         <<camMove NPC_CamRig "npc">>
+Npc: I see… well since you're here now, you might as well help me out…
+Npc: I'm terribly afraid that I've really screwed the pooch on this one!
+<<camMove NPC_CamRig "pc">>
+    -> Whatever it is, I'm sure I can help you!
+         <<camMove NPC_CamRig "return">>
+         <<jump  Filler>>
+    -> Ugh fine I guess
+         <<camMove NPC_CamRig "return">>
+         <<jump Filler>>
+    -> Nope! I'm out!
+         <<dialoguePhaseGetter NPC "questDenied">>
+         <<camMove NPC_CamRig "return">>
+
+===
+
+title: Filler
+--- 
+<<camMove NPC_CamRig "npc">>
+Npc: Well lets see… not too long ago I was sitting here in my chair, enjoying the fire and knitting hats for my little sweeties…
+Npc: Oh my,I jumped up right quick when I realized! I had forgotten about dinner!
+Npc: I rushed over to my babies, they sleep in that little bed right there, you see
+Npc: But Oh! The horrors! My darling angels were nowhere to be found!
+Npc: My sweet little babies… my poor darling things! 
+<<camMove NPC_CamRig "pc">>
+-> Oh no! How Horrible! How can I help?
+     <<camMove NPC_CamRig "return">>
+     <<jump Quest>>
+-> Seems like you should pay better attention…
+     <<camMove NPC_CamRig "npc">>
+	Npc: Oh my! Well how… rude! My my you are certainly something..
+        <<camMove NPC_CamRig "pc">>
+	    -> shrug  
+             <<camMove NPC_CamRig "return">>
+             <<jump Quest>>      
+	    -> I'm just saying… but what do you need help with?
+             <<camMove NPC_CamRig "return">>
+             <<jump Quest>>
+        -> Yeah... I'm not helping you. 
+            Npc: Ok just let my poor little kitties suffer then...
+                <<camMove NPC_CamRig "return">>
+                <<dialoguePhaseGetter NPC "questDenied">>
+     
+		
+===
+
+title: ReturnChat
+---
+<<camMove NPC_CamRig "npc">>
+Npc: Well well well, look who comes crawling back...
+Npc: It seems like you <i>Do<i> care for my little kitties after all!
+Npc: Finally willing to help?
+<<camMove NPC_CamRig "pc">>
+    -> Yeah sure!
+         <<camMove NPC_CamRig "return">>
+         <<jump Quest>>
+    -> I guess I could...
+         <<camMove NPC_CamRig "return">>
+         <<jump Quest>>
+    -> Mmmm nahhhh I'm good.
+         <<camMove NPC_CamRig "return">> 
+===
+title: Quest
+---
+<<camMove NPC_CamRig "npc">>
+Npc: I need you to help me find my precious little kitties! Oh please won't you help?
+Npc: I don't know where they ran off to! They really like to play around in boxes and climb on my shelves, but I'd reckon some ran outside too!
+Npc: Please find my babies and bring them back home!
+<<camMove NPC_CamRig "pc">>
+    -> Awww of course I'll help! They'll be home in no time, don't you worry!
+        <<camMove NPC_CamRig "npc">>
+    -> Damn that really sucks… Sure, I'll go find them. 
+        <<camMove NPC_CamRig "npc">>
+    -> You really should be more careful next time… I'll help you, but just this once!
+        <<camMove NPC_CamRig "npc">>
+Npc: Oh thank you so much! I'll have something extra special waiting for you if you can really find them all!
+Npc: Please darling, bring them home to me…
+<<camMove NPC_CamRig "return">>
+<<dialoguePhaseGetter NPC "questTaken">>
+
+===
+
+title: InProgress
+---
+<<camMove NPC_CamRig "npc">>
+Npc: Have you found them all?!? 
+Npc: No? You haven't..? 
+Npc: WELL GET BACK OUT THERE AND FIND MY BABIES!!!
+<<camMove NPC_CamRig "return">>
+
+===
+
+title: QuestComplete
+---
+<<camMove NPC_CamRig "npc">>
+Npc: Oh YES!! MY BABIIIEEESSS!!!!
+Npc: Come to mama! Oh my sweeties! Helloooo, yes yes, welcome home my darlings.
+Npc: Did they give you too much trouble? 
+<<camMove NPC_CamRig "pc">>
+    -> Oh not at all! They're the sweetest little things!
+        <<camMove NPC_CamRig "npc">>
+    -> Only a few scratches, nothing I can't handle.
+        <<camMove NPC_CamRig "npc">>
+    -> Sigh… no it was easy. 
+        <<camMove NPC_CamRig "npc">>
+Npc: Well thank you! Thank you so much!
+Npc: Here, as a token of my appreciation…
+Npc: I made you this scarf! I knit it while you were out! Oh and it will just look so wonderful on you!
+<<camMove NPC_CamRig "pc">>
+    -> Thank you so much! I'll be so stylish now!
+        <<camMove NPC_CamRig "npc">>
+    -> Aww thanks, that's very kind.
+        <<camMove NPC_CamRig "npc">>
+    -> I mean I guess I'll take it… thanks?
+        <<camMove NPC_CamRig "npc">>
+Npc: You are welcome! And thank you again, thank you so much!
+Npc: Now shoo! Scram! Get outta my house!
+<<camMove NPC_CamRig "return">>
+<<dialoguePhaseGetter NPC "questReturn">>
+
+===
+
+title: CompletedReturn
+---
+<<camMove NPC_CamRig "npc">>
+Npc: Thanks again for your help darling!
+Npc: Stop by again whenever!
+<<camMove NPC_CamRig "return">>
+===
